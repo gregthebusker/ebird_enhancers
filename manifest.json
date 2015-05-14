@@ -1,0 +1,12 @@
+{
+  "name": "ebird Enhancer",
+  "version": "0.1",
+  "description": "Enhanced features for ebird",
+  "author": "Greg Schechter",
+  "content_scripts": [
+    {
+	  "matches": ["*://ebird.org/ebird/alert/summary*"],
+	  "js": ["need_mapper.js"],
+	}
+  ],
+}
