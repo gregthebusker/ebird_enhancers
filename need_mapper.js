@@ -1,6 +1,5 @@
 var ebirdEnhancer = function() {
 }
-
 window.ebirdEnhancer = ebirdEnhancer;
 
 var script = document.createElement('script');
@@ -8,6 +7,7 @@ script.type = 'text/javascript';
 script.src = 'http://maps.googleapis.com/maps/api/js?v=3.exp' +
 '&signed_in=true&callback=ebirdEnhancer';
 document.body.appendChild(script);
+
 (function() {
 	var table = document.getElementById('sightingsTable');
 
@@ -56,8 +56,28 @@ document.body.appendChild(script);
 	  return results;
 	}
 
+	function renderMap(data) {
+		var mapEl = document.createElement('div');
+		mapEl.style.width = '100%';
+		mapEl.style.height = '200px';
+		button.parentNode.replaceChild(mapEl, button);
+		var mapOptions = {
+		  zoom: 8
+		};
+		var map = new google.maps.Map(mapEl, mapOptions);
+		data.forEach(function(datum) {
+			var marker = new google.maps.Marker({
+			  position: new google.maps.LatLng(datum.mapData[0],datum.mapData[1]),
+			  map: map,
+			  title: datum.locname
+			});
+		});
+	}
+	
 	function showMap() {
+		console.log(window);
 	  var data = getNeedData();
+	  renderMap(data);
 	  console.log(data);
 	}
 })();
